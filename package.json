@@ -1,0 +1,46 @@
+{
+  "name": "Custom-Discord-Rich-Presence",
+  "productName": "Custom-Discord-Rich-Presence by chapo",
+  "version": "1.0.0",
+  "description": "Customize your discord rich presence activity!",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "GovnocodedByChapo",
+    "email": "aoufchapo@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "discord-rpc": "^4.0.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "reactive-json-file": "^2.0.0",
+    "samp-query": "^0.1.5",
+    "url-regex": "^5.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
+    "electron": "22.2.0"
+  },
+  "build": {
+    "productName": "Dota2 Discord Rich Presence",
+    "appId": "com.GovnocodedByChapo.app",
+    "win": {
+      "target": "nsis",
+      "icon": "src/icon.ico"
+    }
+  },
+  "packagerConfig": {
+    "icon": "./src/icon.ico"
+  }
+}

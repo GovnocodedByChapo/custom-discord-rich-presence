@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Discord Rich Presence Changer by chapo ( vk.com/chaposcritps )</title>
+    <!-- <link rel="stylesheet" href="index.css" /> -->
+    <!-- <link rel="stylesheet" href="style/style.css" /> -->
+    <!-- <link rel="stylesheet" href="style/title.css" /> -->
+    <!-- <link rel="stylesheet" href="style/main.css" /> -->
+	  <!-- <link rel="stylesheet" href="style/reset.css" /> -->
+    <link rel="stylesheet" href="style/previw.css" />
+    <link rel="stylesheet" href="style/discord.css" />
+    <script src="https://kit.fontawesome.com/4472aa7e17.js" crossorigin="anonymous"></script>
+    <script src="main.js" async></script>
+  </head>
+  <body>
+
+    <ul class="guilds-container">
+      <li class="squircle purple-boi" id="tab_main">
+        <i class="fas fa-tasks"></i>
+        <div class="popper-boi">
+          <h4 class="popper-text">Main</h4>
+        </div>
+      </li>
+      <li class="squircle purple-boi" id="tab_images">
+        <i class="fas fa-images"></i>
+        <div class="popper-boi">
+          <h4 class="popper-text">Images</h4>
+        </div>
+      </li>
+      <li class="squircle purple-boi" id="tab_buttons">
+        <i class="fas fa-external-link-square-alt"></i>
+        <div class="popper-boi">
+          <h4 class="popper-text">Buttons</h4>
+        </div>
+      </li>
+      <li class="divider"></li>
+      <li class="squircle green-boi" id="updatePresence">
+        <i class="fas fa-refresh"></i>
+        <div class="popper-boi">
+          <h4 class="popper-text">Update rich presence</h4>
+        </div>
+      </li>
+    </ul>
+
+    <div>
+      <div id="child" class="tab">
+        <br>
+        <div id="tab_main_content">
+          <h3>Main settings</h3>
+          <input class="dinput" placeholder="Client ID" id="clientid">
+          <br>
+          <input class="dinput" placeholder="Details" id="details">
+          <br>
+          <input class="dinput" placeholder="State" id="state">
+          <label class="check width-15">
+            Show timestamp
+            <input type="checkbox" id="enableTimestamp">
+            <span class="checkmark"></span>
+          </label>
+          <br>
+          <label for="enableParty">Party size</label>
+          <br>
+          <input class="dinput" style="width: 112px;" placeholder="Min." id="partyMin">
+          <input class="dinput" style="width: 112px;" placeholder="Max." id="partyMax">
+        </div>
+
+        <div id="tab_images_content" style="display: none;">
+          <h3>Large image:</h3>
+          
+          <input class="dinput" placeholder="Key or URL" id="largeImageKey">
+          <datalist id="largeImagesList"></datalist>
+          <br>
+          
+          <input class="dinput" placeholder="Text" id="largeImageText">
+          <br>
+          <br>
+          <h3>Small image:</h3>
+          
+          <input class="dinput" placeholder="Key or URL" id="smallImageKey">
+          <datalist id="smallImagesList"></datalist>
+          <br>
+          
+          <input class="dinput" placeholder="Text" id="smallImageText">
+        </div>
+
+        <div id="tab_buttons_content" style="display: none;">
+          <h3>First button:</h3>
+          
+          <input class="dinput" placeholder="Label" id="button1label">
+          <br>
+          
+          <input class="dinput" placeholder="URL" id="button1url">
+          <br>
+          <br>
+          <h3>Second button:</h3>
+          
+          <input class="dinput" placeholder="Label" id="button2label">
+          <br>
+          
+          <input class="dinput" placeholder="URL" id="button2url">
+        </div>
+
+        <div id="tab_save_content" style="display: none;">
+          <h3>Config</h3>
+          <button class="dbtn" style="width: 245px"> <i class="fas fa-save"></i> Save</button>
+          <br>
+          <button class="dbtn" style="width: 245px"> <i class="fas fa-arrow-alt-to-top"></i> Save as file</button>
+          <br>
+          <button class="dbtn" style="width: 245px">Load from file</button>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- PREVIEW -->
+    <div class="preview">
+      <div class="userPopout-3yP9Rm">
+        <div class="profileBanner-3CRX72"></div>
+        <div class="avatarWrapper-3ECJr8">
+          <div class="avatar-1vZTai popout-13v7jc">
+            <img id="p_avatar" class="userDiscordAvatar" src="https://cdn.discordapp.com/avatars/244792284070019073/8abf57186fd6984b4ecfb1acdfa71b7e.png">
+            <div class="onlineStatus"></div>
+          </div>
+        </div>
+        <div class="userInfo-2zbn-a">
+          <span id="p_username" class="username-Zgv1GP">chapo</span><span id="p_tag" class="discriminator-3NHja3">#0985</span>
+        </div>
+        <div class="content-1r_a9C">
+          <div class="activityUserPopout-2e8pu8">
+            <div class="headerTextNormal-1mD91d headerText-eMQg4z small-246BYy size12-3r1pkq height16-3se7kO weightBold-2gJI4d">
+              Playing a game
+            </div>
+            <div class="bodyNormal-3pzgAP body-3yiUoa">
+              <div class="assets-zGt9I6">
+                <img id="p_imgLarge" src="https://cdn.discordapp.com/avatars/244792284070019073/8abf57186fd6984b4ecfb1acdfa71b7e.png" class="imgLarge">
+                <img id="p_imgSmall" src="https://cdn.discordapp.com/avatars/244792284070019073/8abf57186fd6984b4ecfb1acdfa71b7e.png" class="imgSmall">
+              </div>
+              <div class="flexChild-3PzYmX contentImagesUserPopout-4ZdS8t content-18aRkC">
+                <div id="p_appname" class="nameNormal-2SH2Ec ellipsis-20tXB4 textRow-2DmgEQ weightSemiBold-1D1-HD" title="Dota 2">
+                  *Application Name*
+                </div>
+                <div id="p_details" title="Competitive" class="details-3Y3vhs ellipsis-20tXB4 textRow-2DmgEQ">
+                  Competitive
+                </div>
+                <div class="state-3crfTu ellipsis-20tXB4 textRow-2DmgEQ">
+                  <span id="p_state" title="Playing Solo">Playing Solo</span> 
+                  <span id="p_party">(1 of 5)</span>
+                </div>
+                <div id="p_time" class="timestamp-3bd_Jn ellipsis-20tXB4 textRow-2DmgEQ">
+                  00:00 left
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="p_btn1" class="dbtn" style="width: 275px; margin:auto;">
+          First Button
+        </button>
+        <button id="p_btn2" class="dbtn" style="width: 275px; margin:auto; margin-top: 10px;">
+          Second button
+        </button>
+      </div>
+    </div>
+    <br>
+    <div class="row statusRow">
+      <h5>Status: </h1>
+      <h5 id="status" style="margin-left: 5px; color:coral"> Connecting...</h1>
+    </div> 
+  </body>
+</html>
