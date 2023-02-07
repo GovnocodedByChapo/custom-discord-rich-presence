@@ -21,7 +21,7 @@ const createWindow = () => {
   });
   mainWindow.setMenu(null)
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
   app.whenReady().then(() => {
     dialog.showMessageBox(mainWindow, {title: 'Custom Discord RP', message: 'Started!\n(app will hide in tray)'});
     let iconPath = path.join(__dirname, 'icon.png');

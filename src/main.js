@@ -15,6 +15,14 @@ const setStatus = (text, color = 'white') => {
     status.style = `color: ${color}; margin-left: 5px;`;
 }
 
+const retryConnect = {
+    state: false,
+    lastTry: -1
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     if (!fs.existsSync(configPath)) save(configPath, {
         clientId: '846495641793462292',
@@ -37,10 +45,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     rpc.login({ clientId: config.clientId }).catch((err) => {
         setStatus(err, 'red');
         if (err.toString() == 'Error: Could not connect') {
-            setStatus(err + ' (retry in 5 sec.)', 'red');
-            setInterval(() => location.reload(), 5000)
+            let sec = 10;
+            const interval = setInterval(() => {
+                setStatus(`Retry in ${sec} sec`, 'red')
+                sec--;
+                if (sec <= 0) {
+                    clearInterval(interval)
+                    location.reload()
+                }
+            }, 1000)
         }
-        //location.reload();
     });
     rpc.on('ready', () => {
         document.getElementById('p_username').textContent = rpc?.user?.username ?? 'Unknown';
@@ -76,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (const img of applicationImages) {
         document.getElementById('largeImagesList').innerHTML += `<option value="${img.name}">`;
         document.getElementById('smallImagesList').innerHTML += `<option value="${img.name}">`;
+        console.log(img.name)
     }
 
     // save settings and update presence
@@ -162,9 +177,9 @@ const startPresence = (config, rpc) => {
     rpc.setActivity({
         details: config.details.length > 1 ? config.details : undefined,
         state: config.state.length > 1 ? config.state : undefined,
-        largeImageKey: config.largeImageKey,
+        largeImageKey: config.largeImageKey.length > 1 ? config.largeImageKey : undefined,
         largeImageText: config.largeImageText.length > 1 ? config.largeImageText : undefined,
-        smallImageKey: config.smallImageKey,
+        smallImageKey: config.smallImageKey.length > 1 ? config.smallImageKey : undefined,
         smallImageText: config.smallImageText.length > 1 ? config.smallImageText : undefined,
         buttons: getButtons(config.buttons),
         startTimestamp: config.enableTimestamp ? Date.now() : undefined,
