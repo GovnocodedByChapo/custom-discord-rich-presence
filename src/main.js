@@ -6,7 +6,7 @@ const { load, save, defaultConfig } = require('./config.js')
 const { getApplicationImages } = require('./activity.js')
 
 const isUrlValid = (url) => urlRegex().test(url)
-const configPath = path.join(__dirname, 'myRpcSettings.json');
+const configPath ='./mySettings.json';
 let applicationImages = [];
 
 const setStatus = (text, color = 'white') => {
@@ -34,7 +34,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     const config = load(configPath)
     const rpc = new RPC.Client({ transport: "ipc" });
-    rpc.login({ clientId: config.clientId }).catch((err) => setStatus(err, 'red'));
+    rpc.login({ clientId: config.clientId }).catch((err) => {
+        setStatus(err, 'red');
+        if (err.toString() == 'Error: Could not connect') {
+            setStatus(err + ' (retry in 5 sec.)', 'red');
+            setInterval(() => location.reload(), 5000)
+        }
+        //location.reload();
+    });
     rpc.on('ready', () => {
         document.getElementById('p_username').textContent = rpc?.user?.username ?? 'Unknown';
         document.getElementById('p_tag').textContent = `#${rpc?.user?.discriminator ?? '0000'}`;
@@ -119,13 +126,12 @@ const getImageUrl = (appId, name) => {
 const isButtonValid = (btn) => btn.label.length > 1 && isUrlValid(btn.url)
 
 const updatePreview = async () => {
-    document.getElementById('p_details').textContent = document.getElementById('state').value;
-    document.getElementById('p_state').textContent = document.getElementById('details').value;
+    document.getElementById('p_details').textContent = document.getElementById('details').value;
+    document.getElementById('p_state').textContent = document.getElementById('state').value;
     document.getElementById('p_time').textContent = document.getElementById('enableTimestamp').checked ? 'Прошло 00:00' : '';
     document.getElementById('p_imgLarge').src = getImageUrl(document.getElementById('clientid').value, document.getElementById('largeImageKey').value);//document.getElementById('largeImageKey').value;
     document.getElementById('p_imgSmall').src = getImageUrl(document.getElementById('clientid').value, document.getElementById('smallImageKey').value);//document.getElementById('smallImageKey').value;
-    document.getElementById('p_btn1').textContent = document.getElementById('button1label').value;
-    document.getElementById('p_btn2').textContent = document.getElementById('button2label').value;
+    
 
     // check party
     const party = {
@@ -135,8 +141,14 @@ const updatePreview = async () => {
     document.getElementById('p_party').textContent = (party.min.match(/(\d+)/) && party.max.match(/(\d+)/)) ? ` (${party.min} из ${party.max})` : ''  
 
     // check buttons; hide invalid buttons
-    if (!isButtonValid({label: document.getElementById('button1label').value, url: document.getElementById('button1url').value})) document.getElementById('p_btn1').style = 'display: none;';
-    if (!isButtonValid({label: document.getElementById('button2label').value, url: document.getElementById('button2url').value})) document.getElementById('p_btn2').style = 'display: none;';
+    const buttons = [
+        {label: document.getElementById('button1label').value, url: document.getElementById('button1url').value},
+        {label: document.getElementById('button2label').value, url: document.getElementById('button2url').value}
+    ]
+    document.getElementById('p_btn1').textContent = buttons[0].label;
+    document.getElementById('p_btn2').textContent = buttons[1].label;
+    document.getElementById('p_btn1').style.display = isButtonValid(buttons[0]) ? null : 'none';
+    document.getElementById('p_btn2').style.display = isButtonValid(buttons[1]) ? null : 'none';
 }
 
 const getButtons = (buttons) => {
@@ -155,8 +167,8 @@ const startPresence = (config, rpc) => {
         smallImageKey: config.smallImageKey,
         smallImageText: config.smallImageText.length > 1 ? config.smallImageText : undefined,
         buttons: getButtons(config.buttons),
-        //startTimestamp: config.enableTimestamp ? Date.now() : undefined,
-        //partySize: config.partyMin.match(/(\d+)/) ? +config.partyMin : undefined  ,
-        //partyMax: config.partyMax.match(/(\d+)/) ? +config.partyMax : undefined   ,
+        startTimestamp: config.enableTimestamp ? Date.now() : undefined,
+        partySize: (config.partyMin.length > 0 && config.partyMin.match(/(\d+)/)) ? +config.partyMin : undefined  ,
+        partyMax: (config.partyMax.length > 0 && config.partyMax.match(/(\d+)/)) ? +config.partyMax : undefined   ,
     });
 }

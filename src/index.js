@@ -14,6 +14,7 @@ const createWindow = () => {
       preload: path.join(__dirname, 'main.js'),
       nodeIntegration: true
     },
+    resizable: false,
     show: false,
     icon: './icon.png',
     skipTaskbar: true
