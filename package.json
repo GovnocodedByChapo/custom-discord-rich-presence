@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "dist": "electron-builder"
   },
   "keywords": [],
   "author": {
@@ -33,7 +34,7 @@
     "electron": "22.2.0"
   },
   "build": {
-    "productName": "Dota2 Discord Rich Presence",
+    "productName": "Custom Discord Rich Presence",
     "appId": "com.GovnocodedByChapo.app",
     "win": {
       "target": "nsis",
