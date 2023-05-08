@@ -1,7 +1,7 @@
 # custom-discord-rich-presence
 Customize discord rich presence activity using this shit. Wroten using electron
 # Installation:
-1. Download latest version in (Releases)[https://github.com/GovnocodedByChapo/custom-discord-rich-presence/releases]
+1. Download latest version in [https://github.com/GovnocodedByChapo/custom-discord-rich-presence/releases](Releases)
 2. Extract all filed from .zip archive to any folder
 3. Run `Custom Discord Rich Presence.exe`
 
