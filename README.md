@@ -1,5 +1,7 @@
 # custom-discord-rich-presence
-Customize discord rich presence activity using this shit. Wroten using electron
+Customize discord rich presence activity using this shit. Wroten using electron  
+![image](https://user-images.githubusercontent.com/82971106/236913751-fe2557f4-9375-4ade-b179-81c68a862019.png)  
+
 # Installation:
 1. Download latest version in [Releases](https://github.com/GovnocodedByChapo/custom-discord-rich-presence/releases)
 2. Extract all filed from .zip archive to any folder
